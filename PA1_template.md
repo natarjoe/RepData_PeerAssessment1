@@ -1,47 +1,70 @@
----
-title: "Reproducible Research: Peer Assessment 1"
-output: 
-  html_document:
-    keep_md: true
----
+# Reproducible Research: Peer Assessment 1
 
 
 ## Loading and preprocessing the data
 
-```{r}
 
+```r
 setwd("~/R/RepResearch")
 
 #Unzipped activity.zip and extracted the csv file. Now loading the  file.
 DailyActivity<- read.csv("activity.csv")
 str(DailyActivity)
+```
+
+```
+## 'data.frame':	17568 obs. of  3 variables:
+##  $ steps   : int  NA NA NA NA NA NA NA NA NA NA ...
+##  $ date    : Factor w/ 61 levels "2012-10-01","2012-10-02",..: 1 1 1 1 1 1 1 1 1 1 ...
+##  $ interval: int  0 5 10 15 20 25 30 35 40 45 ...
+```
+
+```r
 DailyActivity$date <- as.Date(DailyActivity$date) # change date from factor to date format
 DailyActivityCompleteCases <-na.omit(DailyActivity)  # Filter only completed cases
 ```
 
 
 ## What is mean total number of steps taken per day?
-```{r}
-require(lattice)    # Needed to draw the graphs
 
+```r
+require(lattice)    # Needed to draw the graphs
+```
+
+```
+## Loading required package: lattice
+```
+
+```r
 DailySteps <-aggregate(DailyActivityCompleteCases$steps,list(DailyActivityCompleteCases$date),FUN="sum")
 histogram(~DailySteps$x, data=DailySteps,breaks=seq(from=0,to=25000,by=1000),type="count",scales=list(x=list(at=seq(from=0,to=25000,by=2000)),y=list(at=seq(from=0,to=30,by=1))),main = "Steps per Day",xlab="Daily Steps",ylab="Frequency (Number of Days)",col="lightblue")
-
 ```
+
+![](PA1_template_files/figure-html/unnamed-chunk-2-1.png)<!-- -->
 
 ### Mean
-```{r}
+
+```r
 mean(DailySteps$x)
 ```
+
+```
+## [1] 10766.19
+```
 ### Median
-```{r}
+
+```r
 median(DailySteps$x)
+```
+
+```
+## [1] 10765
 ```
 
 
 ## What is the average daily activity pattern?
-```{r}
 
+```r
 DailyStepsInterval <-aggregate(x=DailyActivityCompleteCases$steps,by=list(DailyActivityCompleteCases$interval),FUN="mean")
 
 #Find maximum steps
@@ -62,14 +85,21 @@ customPanel <- function(x,y,...) {
 xyplot(x ~ Group.1, data=DailyStepsInterval, type="l",  ylab="Average Number of steps", xlab="5-mniute intervals",scales=list(x=list(at=seq(from=0,to=2400,by=200)),y=list(at=seq(from=0,to=220,by=10))),panel=customPanel ) 
 ```
 
-### Interval with maximum average steps
-```{r}
-MaxStepsInterval
+![](PA1_template_files/figure-html/unnamed-chunk-5-1.png)<!-- -->
 
+### Interval with maximum average steps
+
+```r
+MaxStepsInterval
+```
+
+```
+## [1] 835
 ```
 
 ## Imputing missing values
-```{r}
+
+```r
 CleansedDailyActivity <- as.data.frame(DailyActivity)
 ## Replace Missing values with mean of interval 
 for (i in 1:nrow(CleansedDailyActivity)) {
@@ -85,22 +115,34 @@ names(CleansedDailySteps)<- c("date","steps")
 histogram(~CleansedDailySteps$steps, data=CleansedDailySteps,breaks=seq(from=0,to=25000,by=1000),type="count",scales=list(x=list(at=seq(from=0,to=25000,by=2000)),y=list(at=seq(from=0,to=50,by=1))),main = "Steps per Day",xlab="Daily Steps",ylab="Frequency (Number of Days)",col="pink")
 ```
 
+![](PA1_template_files/figure-html/unnamed-chunk-7-1.png)<!-- -->
+
 ### Mean
-```{r}
+
+```r
 mean(CleansedDailySteps$steps)
+```
+
+```
+## [1] 10766.19
 ```
 
 ### Median
 
-```{r}
-median(CleansedDailySteps$steps)
 
+```r
+median(CleansedDailySteps$steps)
+```
+
+```
+## [1] 10766.19
 ```
 ### Since the mean of interval was used to replace missing values the overall mean will not change significantly from the original data set.
 
 ## Are there differences in activity patterns between weekdays and weekends?
 
-```{r}
+
+```r
 # Create column to show weekday
 CleansedDailyActivity$Weekday <- weekdays(CleansedDailyActivity$date)
 # separate weekdays and weekends into separate data frames
@@ -115,15 +157,19 @@ weekendMeans$group <- "Weekend"
  CleansedDailyActivityWeekdays<- rbind(weekdayMeans,weekendMeans)
  
  xyplot(x ~ Group.1 | group, data=CleansedDailyActivityWeekdays, type="l",  layout=c(1,2), ylab="Average Number of steps", xlab="5-minute intervals", main="Average steps - 5-minutes intervals - Weekdays vs Weekends")
- ```
+```
+
+![](PA1_template_files/figure-html/unnamed-chunk-10-1.png)<!-- -->
  
  
 
  
  
- ```{r}
  
-xyplot(x ~ Group.1 , data=CleansedDailyActivityWeekdays, type="l",lwd=2,  groups=group,auto.key=list(lines=TRUE,points=FALSE,columns=2), ylab="Average number of Steps", xlab="5 minute intervals", main="Average steps - 5-minutes intervals - Weekdays vs Weekends",scales=list(x=list(at=seq(from=0,to=2400,by=200)),y=list(at=seq(from=0,to=220,by=10))))
-```
+ ```r
+ xyplot(x ~ Group.1 , data=CleansedDailyActivityWeekdays, type="l",lwd=2,  groups=group,auto.key=list(lines=TRUE,points=FALSE,columns=2), ylab="Average number of Steps", xlab="5 minute intervals", main="Average steps - 5-minutes intervals - Weekdays vs Weekends",scales=list(x=list(at=seq(from=0,to=2400,by=200)),y=list(at=seq(from=0,to=220,by=10))))
+ ```
+ 
+ ![](PA1_template_files/figure-html/unnamed-chunk-11-1.png)<!-- -->
 
 ### Grouping the points  for weekeend and weekday together we can see that during weekdays there are more steps in the mornings and fewer  steps most of the time during the rest of the day compared to weekends.During the evening there is an increase in steps on weekdays
