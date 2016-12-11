@@ -2,8 +2,6 @@
 
 
 
-<<<<<<< HEAD
-
 
 ## Loading and preprocessing the data
 
@@ -29,8 +27,6 @@ DailyActivityCompleteCases <-na.omit(DailyActivity)  # Filter only completed cas
 ```
 
 
-=======
->>>>>>> origin/master
 ## What is mean total number of steps taken per day?
 
 ```r
@@ -179,12 +175,20 @@ weekendMeans$group <- "Weekend"
  ![](PA1_template_files/figure-html/unnamed-chunk-11-1.png)<!-- -->
 
 ### Grouping the points  for weekeend and weekday together we can see that during weekdays there are more steps in the mornings and fewer  steps most of the time during the rest of the day compared to weekends.During the evening there is an increase in steps on weekdays
-<<<<<<< HEAD
 
 
 =======
-=======
-# Reproducible Research: Peer Assessment 1
+---
+title: "PA1_template.Rmd"
+author: "Joe Natarajan"
+date: "December 11, 2016"
+output: html_document
+---
+
+
+
+# Title: Reproducible Research: Peer Assessment 1
+
 
 
 ## Loading and preprocessing the data
@@ -215,18 +219,12 @@ DailyActivityCompleteCases <-na.omit(DailyActivity)  # Filter only completed cas
 
 ```r
 require(lattice)    # Needed to draw the graphs
-```
 
-```
-## Loading required package: lattice
-```
-
-```r
 DailySteps <-aggregate(DailyActivityCompleteCases$steps,list(DailyActivityCompleteCases$date),FUN="sum")
 histogram(~DailySteps$x, data=DailySteps,breaks=seq(from=0,to=25000,by=1000),type="count",scales=list(x=list(at=seq(from=0,to=25000,by=2000)),y=list(at=seq(from=0,to=30,by=1))),main = "Steps per Day",xlab="Daily Steps",ylab="Frequency (Number of Days)",col="lightblue")
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-2-1.png)<!-- -->
+![](PA1_template_files/figure-html/unnamed-chunk-14-1.png)<!-- -->
 
 ### Mean
 
@@ -271,7 +269,7 @@ customPanel <- function(x,y,...) {
 xyplot(x ~ Group.1, data=DailyStepsInterval, type="l",  ylab="Average Number of steps", xlab="5-mniute intervals",scales=list(x=list(at=seq(from=0,to=2400,by=200)),y=list(at=seq(from=0,to=220,by=10))),panel=customPanel ) 
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-5-1.png)<!-- -->
+![](PA1_template_files/figure-html/unnamed-chunk-17-1.png)<!-- -->
 
 ### Interval with maximum average steps
 
@@ -301,7 +299,7 @@ names(CleansedDailySteps)<- c("date","steps")
 histogram(~CleansedDailySteps$steps, data=CleansedDailySteps,breaks=seq(from=0,to=25000,by=1000),type="count",scales=list(x=list(at=seq(from=0,to=25000,by=2000)),y=list(at=seq(from=0,to=50,by=1))),main = "Steps per Day",xlab="Daily Steps",ylab="Frequency (Number of Days)",col="pink")
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-7-1.png)<!-- -->
+![](PA1_template_files/figure-html/unnamed-chunk-19-1.png)<!-- -->
 
 ### Mean
 
@@ -345,7 +343,7 @@ weekendMeans$group <- "Weekend"
  xyplot(x ~ Group.1 | group, data=CleansedDailyActivityWeekdays, type="l",  layout=c(1,2), ylab="Average Number of steps", xlab="5-minute intervals", main="Average steps - 5-minutes intervals - Weekdays vs Weekends")
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-10-1.png)<!-- -->
+![](PA1_template_files/figure-html/unnamed-chunk-22-1.png)<!-- -->
  
  
 
@@ -356,8 +354,9 @@ weekendMeans$group <- "Weekend"
  xyplot(x ~ Group.1 , data=CleansedDailyActivityWeekdays, type="l",lwd=2,  groups=group,auto.key=list(lines=TRUE,points=FALSE,columns=2), ylab="Average number of Steps", xlab="5 minute intervals", main="Average steps - 5-minutes intervals - Weekdays vs Weekends",scales=list(x=list(at=seq(from=0,to=2400,by=200)),y=list(at=seq(from=0,to=220,by=10))))
  ```
  
- ![](PA1_template_files/figure-html/unnamed-chunk-11-1.png)<!-- -->
+ ![](PA1_template_files/figure-html/unnamed-chunk-23-1.png)<!-- -->
 
 ### Grouping the points  for weekeend and weekday together we can see that during weekdays there are more steps in the mornings and fewer  steps most of the time during the rest of the day compared to weekends.During the evening there is an increase in steps on weekdays
->>>>>>> origin/master
->>>>>>> origin/master
+
+
+

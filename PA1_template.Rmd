@@ -1,12 +1,10 @@
-<<<<<<< HEAD
+
 ---
 title: "Reproducible Research: Peer Assessment 1"
 output: 
   html_document:
     keep_md: true
 ---
-
-
 
 
 
@@ -274,4 +272,4 @@ xyplot(x ~ Group.1 , data=CleansedDailyActivityWeekdays, type="l",lwd=2,  groups
 
 ``` {r}
 ```
->>>>>>> origin/master
+
